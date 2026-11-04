@@ -6,6 +6,7 @@ import { isValidISODate } from '../image/dates.ts';
 import { recognizePrices } from '../image/ocr.ts';
 import { ImageEditError, canvasToPng, renderPriceImage, type ImageEdits, type RenderResult } from '../image/render.ts';
 import { decodeUpload } from '../image/upload.ts';
+import { canShareImageFiles, shareImageFile } from '../image/share.ts';
 
 export type MarkupDraft = { kind: AmountKind; text: string };
 export type Overrides = Partial<Record<ProductId, MarkupDraft>>;
@@ -44,6 +45,9 @@ export type PreviewModel = {
   canDownload: boolean;
   saving: boolean;
   downloadError: string | null;
+  canShare: boolean;
+  sharing: boolean;
+  shareError: string | null;
 };
 
 export function usePriceImage() {
@@ -59,6 +63,9 @@ export function usePriceImage() {
   const [snapshot, setSnapshot] = useState<Snapshot>({ request: null, phase: 'idle', result: null, error: null });
   const [saving, setSaving] = useState(false);
   const [downloadError, setDownloadError] = useState<string | null>(null);
+  const [sharing, setSharing] = useState(false);
+  const [shareError, setShareError] = useState<string | null>(null);
+  const [canShareSupported] = useState(() => canShareImageFiles());
   const [technicalError, setTechnicalError] = useState<string | null>(null);
   const latestRequest = useRef<RenderRequest | null>(null);
 
@@ -83,6 +90,7 @@ export function usePriceImage() {
     setDate({ kind: 'keep' });
     setSnapshot({ request: null, phase: 'idle', result: null, error: null });
     setDownloadError(null);
+    setShareError(null);
     setTechnicalError(null);
     dispatch({ type: 'begin', generation: current, fileName: file.name });
     try {
@@ -176,6 +184,7 @@ export function usePriceImage() {
       if (!active) return;
       setSnapshot({ request, phase: 'ready', result, error: null });
       setDownloadError(null);
+      setShareError(null);
     }, error => {
       if (!active) return;
       setSnapshot(previous => ({ ...previous, request, phase: 'error', error: error instanceof Error ? error : new Error(String(error)) }));
@@ -196,7 +205,7 @@ export function usePriceImage() {
   else if (current) { phase = 'ready'; reason = 'Harga dan tanggal sudah diperiksa ukurannya. Gambar siap diunduh.'; }
 
   async function download(): Promise<void> {
-    if (!current || !request || !currentResult || saving || sourceRef.current !== request.source) return;
+    if (!current || !request || !currentResult || saving || sharing || sourceRef.current !== request.source) return;
     const atClick = generation.current;
     setSaving(true);
     setDownloadError(null);
@@ -215,6 +224,25 @@ export function usePriceImage() {
     } catch (error) {
       if (atClick === generation.current) setDownloadError(error instanceof Error ? error.message : String(error));
     } finally { setSaving(false); }
+  }
+
+  async function share(): Promise<void> {
+    if (!current || !request || !currentResult || saving || sharing || sourceRef.current !== request.source) return;
+    const atClick = generation.current;
+    setSharing(true);
+    setShareError(null);
+    try {
+      const blob = await canvasToPng(currentResult.canvas);
+      if (atClick !== generation.current || latestRequest.current !== request) return;
+      const file = new File([blob], 'harga-emas.png', { type: 'image/png' });
+      await shareImageFile(file);
+    } catch (error) {
+      if (atClick === generation.current) {
+        setShareError(error instanceof Error ? error.message : 'Gagal membagikan gambar.');
+      }
+    } finally {
+      if (atClick === generation.current) setSharing(false);
+    }
   }
 
   const actions: EditorActions = {
@@ -256,7 +284,8 @@ export function usePriceImage() {
   const editor: EditorModel = { session, global, overrides, date, derived, renderError: activeRenderError };
   const preview: PreviewModel | null = source ? {
     source, canvas: currentResult?.canvas ?? null, phase, reason,
-    smallerText: currentResult?.smallerText ?? [], canDownload: current && !saving, saving, downloadError,
+    smallerText: currentResult?.smallerText ?? [], canDownload: current && !saving && !sharing, saving, downloadError,
+    canShare: canShareSupported && current && !saving && !sharing, sharing, shareError,
   } : null;
-  return { session, source, technicalError, loadFile, editor, actions, preview, download };
+  return { session, source, technicalError, loadFile, editor, actions, preview, download, share };
 }
