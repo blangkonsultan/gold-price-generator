@@ -5,6 +5,9 @@
   "type": "module",
   "engines": { "node": "22.x" },
   "scripts": {
+    "assets": "node scripts/copy-ocr-assets.mjs",
+    "predev": "npm run assets",
+    "prebuild": "npm run assets",
     "dev": "vite --host 127.0.0.1",
     "check": "tsc --noEmit",
     "test": "vitest run",
