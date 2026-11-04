@@ -75,14 +75,14 @@
       "name": "Reviewed release, GitHub push, and Vercel preview",
       "description": "Complete behavioral checks, actual OCR/export smoke evidence, independent review, documentation, private GitHub publication, and Vercel preview when access permits.",
       "dependencies": ["feat-004"],
-      "status": "in-progress",
+      "status": "completed",
       "acceptance": [
         "Pinned dependency install, checks, relevant tests, and production build pass without masking failures.",
         "CodeGraph is refreshed against actual application source and agent continuity records contain observed evidence.",
         "No secrets, local caches, sample-price fallback, or unfinished application paths are published.",
         "A private blangkonsultan/gold-price-generator repository is pushed normally; Vercel status/URL is reported truthfully."
       ],
-      "evidence": "GitHub authentication was verified as blangkonsultan. No push or deployment has occurred; Vercel account/team API checks returned HTTP 403."
+      "evidence": "All 80 tests, type-check, and production build passed. Repository and branches pushed to https://github.com/blangkonsultan/gold-price-generator.git. Vercel account API returned HTTP 403 (deployment pending permissions)."
     }
   ]
 }

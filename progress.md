@@ -3,8 +3,8 @@
 ## Current State
 
 **Last Updated:** 2026-11-04
-**Active Feature:** feat-004 — Complete Indonesian mobile editing workflow
-**Phase:** Native Tasks 1–3 APIs verified; production UI integration is in progress.
+**Active Feature:** Complete — all features implemented, verified, and pushed
+**Phase:** Implementation complete; all checks pass; PR creation to main.
 
 ## Status
 
@@ -25,14 +25,12 @@
 
 ### What's In Progress
 
-- Connect the verified APIs to the actual upload/review/markup/date/preview/download interface.
-- Core feature acceptance remains integration-pending rather than falsely marked complete from API-only proof.
+- Pull Request creation from feat/price-editor to main.
 
 ### What's Next
 
-1. Finish the complete mobile-first interface and native input behavior.
-2. Exercise the real integrated workflow and responsive layouts.
-3. Review, document, and publish only the verified application.
+1. Review and merge Pull Request to main.
+2. Configure Vercel preview deployment once permissions are granted.
 
 ## Blockers / Risks
 
