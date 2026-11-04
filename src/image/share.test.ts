@@ -58,13 +58,13 @@ describe('share utility', () => {
     expect(result).toBe(false);
   });
 
-  it('throws on unexpected errors', async () => {
+  it('throws friendly Indonesian message on unexpected errors', async () => {
     const nav = {
       share: vi.fn().mockRejectedValue(new Error('Permission denied')),
       canShare: vi.fn().mockReturnValue(true),
     } as unknown as Navigator;
     const file = new File(['test'], 'harga-emas.png', { type: 'image/png' });
 
-    await expect(shareImageFile(file, nav)).rejects.toThrow('Permission denied');
+    await expect(shareImageFile(file, nav)).rejects.toThrow('Gagal membagikan gambar ke media sosial');
   });
 });

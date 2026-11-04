@@ -22,6 +22,6 @@ export async function shareImageFile(file: File, nav: Navigator | undefined = ty
     if (error instanceof Error && error.name === 'AbortError') {
       return false;
     }
-    throw error;
+    throw new Error('Gagal membagikan gambar ke media sosial. Pastikan aplikasi tujuan terpasang dan izin berbagi aktif.');
   }
 }

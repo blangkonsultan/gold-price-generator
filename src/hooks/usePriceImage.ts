@@ -89,6 +89,8 @@ export function usePriceImage() {
     setOverrides({});
     setDate({ kind: 'keep' });
     setSnapshot({ request: null, phase: 'idle', result: null, error: null });
+    setSaving(false);
+    setSharing(false);
     setDownloadError(null);
     setShareError(null);
     setTechnicalError(null);
@@ -285,7 +287,7 @@ export function usePriceImage() {
   const preview: PreviewModel | null = source ? {
     source, canvas: currentResult?.canvas ?? null, phase, reason,
     smallerText: currentResult?.smallerText ?? [], canDownload: current && !saving && !sharing, saving, downloadError,
-    canShare: canShareSupported && current && !saving && !sharing, sharing, shareError,
+    canShare: canShareSupported && current && !saving, sharing, shareError,
   } : null;
   return { session, source, technicalError, loadFile, editor, actions, preview, download, share };
 }
