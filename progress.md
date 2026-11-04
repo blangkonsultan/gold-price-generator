@@ -3,8 +3,8 @@
 ## Current State
 
 **Last Updated:** 2026-11-04
-**Active Feature:** feat-001 — Real photo upload, local OCR, and source-price review
-**Phase:** Native execution approved; numeric domain verified, OCR pipeline starting.
+**Active Feature:** feat-004 — Complete Indonesian mobile editing workflow
+**Phase:** Native Tasks 1–3 APIs verified; production UI integration is in progress.
 
 ## Status
 
@@ -20,24 +20,26 @@
 - CodeGraph full rebuild and file lookup succeeded for the bootstrap adapter: one file, six nodes, five edges.
 - Owner approved the implementation plan, chose Native execution, and approved the targeted CLAUDE.md updates; the root instructions now carry the actual product invariants and startup/evidence boundaries.
 - Numeric domain/draft implementation: 43 tests passed; TypeScript check passed; direct Node API smoke confirmed comma-percentage and zero-override behavior.
+- Real local OCR recognized all eleven prices/date; actual startup cancellation, missing-model failure, recovery, and native worker cleanup passed.
+- Native PNG renderer passed source-pixel preservation, actual OCR readback of edited output, font-floor blocking, manual correction, and resized-source checks; the downloaded PNG was opened and inspected.
 
 ### What's In Progress
 
-- Implement the actual fixed-format image pipeline and cancellable browser worker.
-- Keep application features incomplete until the real upload/OCR/review/export path is connected and exercised.
+- Connect the verified APIs to the actual upload/review/markup/date/preview/download interface.
+- Core feature acceptance remains integration-pending rather than falsely marked complete from API-only proof.
 
 ### What's Next
 
-1. Finish upload/OCR/session state and self-hosted worker/model assets.
-2. Implement native-resolution rendering, then connect the mobile interface.
-3. Exercise the complete source-file/PNG path, review, document, and publish only the verified app.
+1. Finish the complete mobile-first interface and native input behavior.
+2. Exercise the real integrated workflow and responsive layouts.
+3. Review, document, and publish only the verified application.
 
 ## Blockers / Risks
 
 - No further plan/CLAUDE approval is pending; continue the approved Native plan without per-task check-ins.
 - Original font and layered artwork are absent; edited-region fidelity must be demonstrated, not assumed.
 - Vercel CLI timed out; direct account/team requests returned HTTP 403. Deployment access remains unverified.
-- No production OCR, application test suite/build, GitHub push, or deployment has been completed.
+- Real OCR and PNG modules are implemented and exercised. The production interface, production build, GitHub push, and deployment are not yet complete.
 
 ## Decisions Made
 

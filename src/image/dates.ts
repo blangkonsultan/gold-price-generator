@@ -25,5 +25,7 @@ export function parseIndonesianDate(text: string): string | null {
 export function formatIndonesianDate(iso: string): string {
   const date = calendarDate(iso);
   if (!date) throw new InputError('Pilih tanggal yang valid sebelum mengunduh.');
-  return formatter.format(date);
+  let text = '';
+  for (const part of formatter.formatToParts(date)) text += part.type === 'year' ? iso.slice(0, 4) : part.value;
+  return text;
 }

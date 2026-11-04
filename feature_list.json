@@ -22,13 +22,15 @@
       "name": "Real photo upload, local OCR, and source-price review",
       "description": "Decode a selected fixed-format JPEG/PNG/WebP, recognize the eleven price regions in a browser worker, and require review/correction without sample-price substitution.",
       "dependencies": ["feat-000"],
-      "status": "in-progress",
+      "status": "blocked",
+      "readyForIntegration": true,
+      "blocker": "The real upload/OCR/session API is verified; production review controls are being connected in feat-004.",
       "acceptance": [
         "A new upload clears old prices and cannot receive stale results from an earlier OCR job.",
         "OCR worker/model assets are pinned and self-hosted; photos remain in browser memory.",
         "Unrecognized prices remain empty and editable; actual image recognition is demonstrated on the supplied photo."
       ],
-      "evidence": ""
+      "evidence": "Actual Chromium file selection recognized all eleven source prices and 2026-09-30. Startup cancellation, model 404 failure, recovery, same-origin asset requests, and empty native worker inventory were exercised. See docs/verification/2026-11-04-ocr-smoke.md."
     },
     {
       "id": "feat-002",
@@ -36,6 +38,7 @@
       "description": "Parse and format text-only rupiah/percentage inputs and calculate final prices from confirmed originals with per-row precedence.",
       "dependencies": ["feat-000"],
       "status": "blocked",
+      "readyForIntegration": true,
       "blocker": "Numeric domain is implemented; complete native input/UI integration and browser proof are pending.",
       "acceptance": [
         "1.000.000 is integer rupiah and 1,5 is a percentage, with useful caret/paste/delete behavior.",
@@ -50,22 +53,22 @@
       "description": "Render reviewed prices and an optional Indonesian date at native source resolution, enforcing safe text regions and a readable font floor.",
       "dependencies": ["feat-001", "feat-002"],
       "status": "blocked",
-      "blocker": "Waiting for actual OCR source handling and renderer integration.",
+      "blocker": "The renderer/PNG API is verified; production date/preview/export controls are being connected in feat-004.",
+      "readyForIntegration": true,
       "acceptance": [
         "Decoded source pixels outside editable regions and original image dimensions remain unchanged.",
         "Unchanged prices/date are not repainted; date is never silently replaced by today.",
         "Long values fit without overlap, wrapping, clipping, or truncation, or export is explicitly blocked.",
         "The downloaded PNG is opened and inspected; replacement font/background quality is a release gate."
       ],
-      "evidence": ""
+      "evidence": "Actual PNG downloaded/opened. No edits changed zero pixels; price/date edits changed zero pixels outside regions at 1024x1280 and 543x680. Actual OCR read intended PNG prices/date; long fit, unreadable block, and forced manual source correction passed. See docs/verification/2026-11-04-render-smoke.md."
     },
     {
       "id": "feat-004",
       "name": "Complete Indonesian mobile editing workflow",
       "description": "Connect upload, real recognition, source review, markup, date, preview, errors, and PNG download in a mobile-first React interface.",
       "dependencies": ["feat-001", "feat-002", "feat-003"],
-      "status": "blocked",
-      "blocker": "Waiting for the OCR, numeric domain, and native-resolution renderer to be connected.",
+      "status": "in-progress",
       "acceptance": [
         "Upload is prominent before a large preview; the complete workflow is exercised with a real file.",
         "Controls have Indonesian labels, visible focus, local accessible errors, and real loading/disabled/error states.",

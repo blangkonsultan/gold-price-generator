@@ -20,7 +20,7 @@ export const PRICE_REGIONS: readonly PriceRegion[] = [
   { id: 'gift:1', x: 576, baseline: 698, right: 753, clearLeft: 572, clearRight: 753 },
 ];
 
-export const DATE_REGION = { x: 29, y: 475, right: 711, height: 44, baseline: 511, clearLeft: 28, clearRight: 454 } as const;
+export const DATE_REGION = { x: 29, y: 475, right: 711, height: 50, baseline: 511, clearLeft: 28, clearRight: 454 } as const;
 
 export function priceCrop(region: PriceRegion): Rect {
   return { x: region.clearLeft, y: region.baseline - 36, width: region.clearRight - region.clearLeft, height: 45 };

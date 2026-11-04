@@ -135,7 +135,7 @@ Also pin invalid mixed separators/negative currency, incomplete comma drafts, re
 
 **Interfaces produced:**
 - `parseIndonesianDate(text: string): string | null` and `formatIndonesianDate(iso: string): string`; calendar-safe validation, not JavaScript date-overflow normalization.
-- `renderPriceImage(source: SourceImage, original: { prices: Record<ProductId, bigint>; dateISO: string | null }, edited: { prices: Record<ProductId, bigint>; date: DateEdit }): Promise<{ canvas: HTMLCanvasElement; regions: ReadonlyArray<{ x: number; y: number; width: number; height: number }> }>`; compare original/final values to skip unchanged fields, and identify any field/row that cannot fit.
+- `renderPriceImage(source: SourceImage, originalPrices: Record<ProductId, bigint>, edited: ImageEdits): Promise<RenderResult>`; `ImageEdits` contains final `prices`, `date: DateEdit`, and optional `forcePrices: ReadonlySet<ProductId>` for manually corrected sources. `RenderResult` contains the native canvas, changed pixel regions, and IDs whose font was reduced. `ImageEditError.field` identifies a price/date failure. Keep-date mode skips repainting; an explicit date replacement is always honored.
 - `canvasToPng(canvas: HTMLCanvasElement): Promise<Blob>`; propagate real encoding failure.
 
 - [ ] Write failing date tests for `30 September 2026`, invalid February dates, leap-year boundaries, and explicit keep-versus-replace behavior. Unreadable original date plus keep mode must not create today's date.
@@ -173,6 +173,6 @@ Also pin invalid mixed separators/negative currency, incomplete comma drafts, re
 
 ## Plan Review and Execution
 
-The owner approved the production design and requested these initializations. This plan and the targeted CLAUDE.md change proposal are the next review gates, not evidence that application code exists.
+The owner approved the production design, this implementation plan, Native execution, and the targeted CLAUDE.md changes. Continue through the plan without per-task approval prompts; these documents are not themselves proof of a finished application.
 
 **Recommended execution:** Native in this session. The OCR, immutable-source rendering, and mobile state lifetimes share tight contracts; one integration owner can keep them consistent, followed by fresh whole-project review. Subagent-driven execution remains available if the owner prefers per-task implementation/review contexts.

@@ -8,6 +8,8 @@ const assets = [
   ['node_modules/tesseract.js/dist/worker.min.js.LICENSE.txt', 'licenses/worker-LICENSE.txt'],
   ['node_modules/tesseract.js/LICENSE.md', 'licenses/tesseract-LICENSE.txt'],
   ['node_modules/tesseract.js-core/LICENSE', 'licenses/core-LICENSE.txt'],
+  ['node_modules/@fontsource/roboto/LICENSE', 'licenses/roboto-OFL.txt'],
+  ['node_modules/@fontsource/montserrat/LICENSE', 'licenses/montserrat-OFL.txt'],
   ['node_modules/@tesseract.js-data/eng/package.json', 'licenses/language-package.json'],
   ['node_modules/@tesseract.js-data/eng/README.md', 'licenses/language-README.md'],
   ['node_modules/@tesseract.js-data/eng/4.0.0_best_int/eng.traineddata.gz', 'lang/eng.traineddata.gz'],

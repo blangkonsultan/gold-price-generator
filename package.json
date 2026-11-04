@@ -3,7 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "engines": { "node": "22.x" },
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "assets": "node scripts/copy-ocr-assets.mjs",
     "predev": "npm run assets",
@@ -15,6 +17,7 @@
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": {
+    "@fontsource/montserrat": "5.3.0",
     "@fontsource/roboto": "5.3.0",
     "@tesseract.js-data/eng": "1.0.0",
     "react": "19.3.1",

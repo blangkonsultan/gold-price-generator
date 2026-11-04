@@ -14,6 +14,9 @@ describe('source and edited dates', () => {
   it('formats the replacement date with an Indonesian month', () => {
     expect(formatIndonesianDate('2026-11-04')).toBe('04 November 2026');
   });
+  it('retains the four-digit year when formatting a valid early calendar year', () => {
+    expect(formatIndonesianDate('0099-01-01')).toBe('01 Januari 0099');
+  });
   it('blocks invalid replacement dates instead of overflowing to the next month', () => {
     expect(isValidISODate('2026-02-31')).toBe(false);
     expect(isValidISODate('2024-02-29')).toBe(true);
