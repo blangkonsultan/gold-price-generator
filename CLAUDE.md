@@ -4,8 +4,9 @@ Gold Price Generator: an Indonesian, mobile-first editor for the supplied
 Redmark/Gift Series price-list layout. Approved stack: React + Vite + TypeScript,
 browser-local Tesseract.js OCR, native-resolution Canvas PNG output.
 
-Current checkpoint: product/tooling initialized; the owner approved the
-implementation plan and native execution. The temporary mockup is not production OCR.
+Current checkpoint: the application is implemented and the real upload/OCR/PNG,
+mobile, touch, and keyboard paths were exercised. Finish release checks/review
+and publication before marking the delivery complete.
 
 ## Startup Workflow
 
@@ -14,7 +15,7 @@ Before writing code:
 1. **Confirm working directory** with `pwd`; work in this repository, not the `laragon` parent.
 2. **Read this file** completely
 3. **Read `PRODUCT.md`** and the approved specification and implementation plan under `docs/superpowers/`.
-4. **Run `./init.sh`**; it currently validates harness structure, not application behavior.
+4. **Run `./init.sh`** for actual tests, type-check, and production build; observe real image/UI behavior separately.
 5. **Read `feature_list.json`** to see current feature state
 6. **Use CodeGraph first** for code discovery (`codegraph explore "<file or symbol>"`).
    Use ordinary file tools only when its index is explicitly inactive or cannot answer;
@@ -76,12 +77,12 @@ Before ending a session:
 ```
 
 Required checks:
-- `node scripts/verify-harness.mjs`
-- `node --check scripts/verify-harness.mjs`
+- `npm run check`
+- `npm test`
+- `npm run build`
 
-The verifier uses the installed `harness-creator` skill under `~/.agents/skills/`.
-Its score is structural only. Add real app check/test/build commands when the
-manifest exists; do not mark application features complete from this score.
+Optional structural harness audit: `node scripts/verify-harness.mjs`, using the
+installed `harness-creator` skill. Its score never replaces application evidence.
 
 ## Escalation
 
