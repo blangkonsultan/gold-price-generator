@@ -136,7 +136,7 @@ progress::-moz-progress-bar { background: var(--accent); }
 .preview-panel > .hint { margin-top: 10px; }
 .preview-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
 .preview-actions button { width: 100%; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; }
-.mobile-only-action { display: none; }
+.preview-actions button.mobile-only-action { display: none; }
 .export-note { margin-top: 13px; font-size: 13px; color: var(--muted); }
 .mobile-edit-link { display: none; }
 .mobile-switch { display: none; }
@@ -159,7 +159,7 @@ progress::-moz-progress-bar { background: var(--accent); }
   .mobile-switch button { flex: 1; }
   .mobile-switch button[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
   .mobile-edit-link { display: block; }
-  .mobile-only-action { display: inline-flex; }
+  .preview-actions button.mobile-only-action { display: inline-flex; }
   .has-source { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
   .app-footer { max-width: 700px; padding: 24px 20px; }
 }
