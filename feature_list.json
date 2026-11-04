@@ -1,6 +1,6 @@
 {
   "project": "gold-price-generator",
-  "phase": "implementation-plan-review",
+  "phase": "native-implementation",
   "spec": "docs/superpowers/specs/2026-11-04-gold-price-generator-design.md",
   "plan": "docs/superpowers/plans/2026-11-04-gold-price-generator.md",
   "features": [
@@ -22,8 +22,7 @@
       "name": "Real photo upload, local OCR, and source-price review",
       "description": "Decode a selected fixed-format JPEG/PNG/WebP, recognize the eleven price regions in a browser worker, and require review/correction without sample-price substitution.",
       "dependencies": ["feat-000"],
-      "status": "blocked",
-      "blocker": "Implementation-plan review is pending.",
+      "status": "in-progress",
       "acceptance": [
         "A new upload clears old prices and cannot receive stale results from an earlier OCR job.",
         "OCR worker/model assets are pinned and self-hosted; photos remain in browser memory.",
@@ -37,13 +36,13 @@
       "description": "Parse and format text-only rupiah/percentage inputs and calculate final prices from confirmed originals with per-row precedence.",
       "dependencies": ["feat-000"],
       "status": "blocked",
-      "blocker": "Implementation-plan review is pending.",
+      "blocker": "Numeric domain is implemented; complete native input/UI integration and browser proof are pending.",
       "acceptance": [
         "1.000.000 is integer rupiah and 1,5 is a percentage, with useful caret/paste/delete behavior.",
         "A row-specific rule, including zero, replaces global markup rather than stacking.",
         "Recalculation always uses the original price; unsafe or invalid amounts cannot silently become a valid price."
       ],
-      "evidence": ""
+      "evidence": "Task 1: 43 domain/draft tests passed, TypeScript check passed, and a direct Node API smoke produced 1.624.000 for 1,5% and preserved 1.600.000 for an explicit zero override. Not yet marked complete because the actual editing interface is pending."
     },
     {
       "id": "feat-003",
@@ -51,7 +50,7 @@
       "description": "Render reviewed prices and an optional Indonesian date at native source resolution, enforcing safe text regions and a readable font floor.",
       "dependencies": ["feat-001", "feat-002"],
       "status": "blocked",
-      "blocker": "Implementation-plan review is pending.",
+      "blocker": "Waiting for actual OCR source handling and renderer integration.",
       "acceptance": [
         "Decoded source pixels outside editable regions and original image dimensions remain unchanged.",
         "Unchanged prices/date are not repainted; date is never silently replaced by today.",
@@ -66,7 +65,7 @@
       "description": "Connect upload, real recognition, source review, markup, date, preview, errors, and PNG download in a mobile-first React interface.",
       "dependencies": ["feat-001", "feat-002", "feat-003"],
       "status": "blocked",
-      "blocker": "Implementation-plan review is pending.",
+      "blocker": "Waiting for the OCR, numeric domain, and native-resolution renderer to be connected.",
       "acceptance": [
         "Upload is prominent before a large preview; the complete workflow is exercised with a real file.",
         "Controls have Indonesian labels, visible focus, local accessible errors, and real loading/disabled/error states.",
@@ -80,7 +79,7 @@
       "description": "Complete behavioral checks, actual OCR/export smoke evidence, independent review, documentation, private GitHub publication, and Vercel preview when access permits.",
       "dependencies": ["feat-004"],
       "status": "blocked",
-      "blocker": "Implementation-plan review and complete application verification are pending.",
+      "blocker": "Complete application verification and release review are pending.",
       "acceptance": [
         "Pinned dependency install, checks, relevant tests, and production build pass without masking failures.",
         "CodeGraph is refreshed against actual application source and agent continuity records contain observed evidence.",

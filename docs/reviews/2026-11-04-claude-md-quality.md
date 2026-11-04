@@ -5,7 +5,7 @@
 - Files found: **1** — root `CLAUDE.md`, created by Harness Creator.
 - Average score: **52/100 (C)**.
 - Files needing update: **1**.
-- Targeted updates have **not** been applied; the improver workflow requires owner confirmation after this report.
+- The owner approved the targeted updates after this report; they have now been applied. The scores below describe the original generated baseline, not an unobserved post-update grade.
 
 This is a manual project-context quality assessment, not the bundled harness structural score. `./init.sh` returned structural 100/100, which proves the expected sections/artifacts are present, not that this generic CLAUDE.md describes the product or that the application works.
 

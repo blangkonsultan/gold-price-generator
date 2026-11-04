@@ -8,7 +8,7 @@
 
 **Tech Stack:** React, Vite, TypeScript, Tesseract.js, self-hosted OCR assets, Canvas, Vitest for pure behavior, npm, Node 22, GitHub, Vercel preview.
 
-**Spec:** `docs/superpowers/specs/2026-11-04-gold-price-generator-design.md` — approved by the owner; the implementation plan itself awaits review.
+**Spec:** `docs/superpowers/specs/2026-11-04-gold-price-generator-design.md` — specification and implementation plan approved by the owner; Native execution selected.
 
 ## Global Constraints
 
@@ -38,7 +38,7 @@
 - [x] Project directory, approved design, Obsidian project/decision records, Impeccable `PRODUCT.md`, and initial harness created.
 - [x] `./init.sh` executed the actual installed structural validator: 100/100, five subsystems 5/5. This is not an application test or build.
 - [x] CodeGraph initialized and refreshed against the bootstrap adapter. Its application-source graph does not yet exist.
-- [ ] Owner reviews this plan and the separate CLAUDE.md improvement proposal before application implementation.
+- [x] Owner approved the plan, selected Native execution, and confirmed the separate CLAUDE.md improvements.
 
 ## File Responsibilities and Shared Interfaces
 
