@@ -12,3 +12,5 @@ coverage/
 *.local
 *.tsbuildinfo
 .DS_Store
+public/ocr/
+.claude.local.md

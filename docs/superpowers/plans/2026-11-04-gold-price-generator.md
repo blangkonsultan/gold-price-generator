@@ -8,7 +8,7 @@
 
 **Tech Stack:** React, Vite, TypeScript, Tesseract.js, self-hosted OCR assets, Canvas, Vitest for pure behavior, npm, Node 22, GitHub, Vercel preview.
 
-**Spec:** `docs/superpowers/specs/2026-11-04-gold-price-generator-design.md` — approved by the owner; the implementation plan itself awaits review.
+**Spec:** `docs/superpowers/specs/2026-11-04-gold-price-generator-design.md` — specification and implementation plan approved by the owner; Native execution selected.
 
 ## Global Constraints
 
@@ -38,7 +38,7 @@
 - [x] Project directory, approved design, Obsidian project/decision records, Impeccable `PRODUCT.md`, and initial harness created.
 - [x] `./init.sh` executed the actual installed structural validator: 100/100, five subsystems 5/5. This is not an application test or build.
 - [x] CodeGraph initialized and refreshed against the bootstrap adapter. Its application-source graph does not yet exist.
-- [ ] Owner reviews this plan and the separate CLAUDE.md improvement proposal before application implementation.
+- [x] Owner approved the plan, selected Native execution, and confirmed the separate CLAUDE.md improvements.
 
 ## File Responsibilities and Shared Interfaces
 
@@ -135,7 +135,7 @@ Also pin invalid mixed separators/negative currency, incomplete comma drafts, re
 
 **Interfaces produced:**
 - `parseIndonesianDate(text: string): string | null` and `formatIndonesianDate(iso: string): string`; calendar-safe validation, not JavaScript date-overflow normalization.
-- `renderPriceImage(source: SourceImage, original: { prices: Record<ProductId, bigint>; dateISO: string | null }, edited: { prices: Record<ProductId, bigint>; date: DateEdit }): Promise<{ canvas: HTMLCanvasElement; regions: ReadonlyArray<{ x: number; y: number; width: number; height: number }> }>`; compare original/final values to skip unchanged fields, and identify any field/row that cannot fit.
+- `renderPriceImage(source: SourceImage, originalPrices: Record<ProductId, bigint>, edited: ImageEdits): Promise<RenderResult>`; `ImageEdits` contains final `prices`, `date: DateEdit`, and optional `forcePrices: ReadonlySet<ProductId>` for manually corrected sources. `RenderResult` contains the native canvas, changed pixel regions, and IDs whose font was reduced. `ImageEditError.field` identifies a price/date failure. Keep-date mode skips repainting; an explicit date replacement is always honored.
 - `canvasToPng(canvas: HTMLCanvasElement): Promise<Blob>`; propagate real encoding failure.
 
 - [ ] Write failing date tests for `30 September 2026`, invalid February dates, leap-year boundaries, and explicit keep-versus-replace behavior. Unreadable original date plus keep mode must not create today's date.
@@ -173,6 +173,6 @@ Also pin invalid mixed separators/negative currency, incomplete comma drafts, re
 
 ## Plan Review and Execution
 
-The owner approved the production design and requested these initializations. This plan and the targeted CLAUDE.md change proposal are the next review gates, not evidence that application code exists.
+The owner approved the production design, this implementation plan, Native execution, and the targeted CLAUDE.md changes. Continue through the plan without per-task approval prompts; these documents are not themselves proof of a finished application.
 
 **Recommended execution:** Native in this session. The OCR, immutable-source rendering, and mobile state lifetimes share tight contracts; one integration owner can keep them consistent, followed by fresh whole-project review. Subagent-driven execution remains available if the owner prefers per-task implementation/review contexts.

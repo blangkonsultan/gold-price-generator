@@ -1,15 +1,10 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-echo "=== Harness Initialization ==="
+echo "=== Application tests ==="
+npm test
 
-echo "=== node scripts/verify-harness.mjs ==="
-node scripts/verify-harness.mjs
+echo "=== Production type-check and build ==="
+npm run build
 
-echo "=== Verification Complete ==="
-echo ""
-echo "Next steps:"
-echo "1. Read feature_list.json to see current feature state"
-echo "2. Pick ONE unfinished feature to work on"
-echo "3. Implement only that feature"
-echo "4. Re-run verification before claiming done"
+echo "Application checks passed. Real upload/OCR/PNG and viewport evidence is recorded under docs/verification/."

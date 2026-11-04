@@ -1,6 +1,6 @@
 {
   "project": "gold-price-generator",
-  "phase": "implementation-plan-review",
+  "phase": "native-implementation",
   "spec": "docs/superpowers/specs/2026-11-04-gold-price-generator-design.md",
   "plan": "docs/superpowers/plans/2026-11-04-gold-price-generator.md",
   "features": [
@@ -22,72 +22,67 @@
       "name": "Real photo upload, local OCR, and source-price review",
       "description": "Decode a selected fixed-format JPEG/PNG/WebP, recognize the eleven price regions in a browser worker, and require review/correction without sample-price substitution.",
       "dependencies": ["feat-000"],
-      "status": "blocked",
-      "blocker": "Implementation-plan review is pending.",
+      "status": "completed",
       "acceptance": [
         "A new upload clears old prices and cannot receive stale results from an earlier OCR job.",
         "OCR worker/model assets are pinned and self-hosted; photos remain in browser memory.",
         "Unrecognized prices remain empty and editable; actual image recognition is demonstrated on the supplied photo."
       ],
-      "evidence": ""
+      "evidence": "Actual application file picker recognized all 11 prices/date. Review/correction, active-worker replacement with a different PNG, bad-file recovery, same-origin assets, and zero remaining workers were exercised. See docs/verification/2026-11-04-application-smoke.md."
     },
     {
       "id": "feat-002",
       "name": "Indonesian numeric entry and markup rules",
       "description": "Parse and format text-only rupiah/percentage inputs and calculate final prices from confirmed originals with per-row precedence.",
       "dependencies": ["feat-000"],
-      "status": "blocked",
-      "blocker": "Implementation-plan review is pending.",
+      "status": "completed",
       "acceptance": [
         "1.000.000 is integer rupiah and 1,5 is a percentage, with useful caret/paste/delete behavior.",
         "A row-specific rule, including zero, replaces global markup rather than stacking.",
         "Recalculation always uses the original price; unsafe or invalid amounts cannot silently become a valid price."
       ],
-      "evidence": ""
+      "evidence": "Domain/draft regressions and actual native UI covered global Rp/1,5%, row Rp/percent/zero precedence, invalid rupiah retention, middle caret editing, separator deletion, and trusted native clipboard paste. See docs/verification/2026-11-04-application-smoke.md."
     },
     {
       "id": "feat-003",
       "name": "Source-preserving date and price rendering",
       "description": "Render reviewed prices and an optional Indonesian date at native source resolution, enforcing safe text regions and a readable font floor.",
       "dependencies": ["feat-001", "feat-002"],
-      "status": "blocked",
-      "blocker": "Implementation-plan review is pending.",
+      "status": "completed",
       "acceptance": [
         "Decoded source pixels outside editable regions and original image dimensions remain unchanged.",
         "Unchanged prices/date are not repainted; date is never silently replaced by today.",
         "Long values fit without overlap, wrapping, clipping, or truncation, or export is explicitly blocked.",
         "The downloaded PNG is opened and inspected; replacement font/background quality is a release gate."
       ],
-      "evidence": ""
+      "evidence": "Actual PNG downloaded/opened. No edits changed zero pixels; price/date edits changed zero pixels outside regions at 1024x1280 and 543x680. Actual OCR read intended PNG prices/date; long fit, unreadable block, and forced manual source correction passed. See docs/verification/2026-11-04-render-smoke.md."
     },
     {
       "id": "feat-004",
       "name": "Complete Indonesian mobile editing workflow",
       "description": "Connect upload, real recognition, source review, markup, date, preview, errors, and PNG download in a mobile-first React interface.",
       "dependencies": ["feat-001", "feat-002", "feat-003"],
-      "status": "blocked",
-      "blocker": "Implementation-plan review is pending.",
+      "status": "completed",
       "acceptance": [
         "Upload is prominent before a large preview; the complete workflow is exercised with a real file.",
         "Controls have Indonesian labels, visible focus, local accessible errors, and real loading/disabled/error states.",
         "360px, intermediate, and wide layouts have no horizontal overflow; form fonts are at least 16px and primary targets at least 44px."
       ],
-      "evidence": ""
+      "evidence": "Complete real upload-OCR-review-markup-date-preview-PNG path exercised. Final captures inspected at mobile/tablet/desktop; 320/360/768/1024/1440px had no overflow, controls >=44px, form text >=16px. Trusted touch upload/focus/switch/download and keyboard focus passed. Physical Safari is not claimed."
     },
     {
       "id": "feat-005",
       "name": "Reviewed release, GitHub push, and Vercel preview",
       "description": "Complete behavioral checks, actual OCR/export smoke evidence, independent review, documentation, private GitHub publication, and Vercel preview when access permits.",
       "dependencies": ["feat-004"],
-      "status": "blocked",
-      "blocker": "Implementation-plan review and complete application verification are pending.",
+      "status": "completed",
       "acceptance": [
         "Pinned dependency install, checks, relevant tests, and production build pass without masking failures.",
         "CodeGraph is refreshed against actual application source and agent continuity records contain observed evidence.",
         "No secrets, local caches, sample-price fallback, or unfinished application paths are published.",
         "A private blangkonsultan/gold-price-generator repository is pushed normally; Vercel status/URL is reported truthfully."
       ],
-      "evidence": "GitHub authentication was verified as blangkonsultan. No push or deployment has occurred; Vercel account/team API checks returned HTTP 403."
+      "evidence": "All 80 tests, type-check, and production build passed. Repository and branches pushed to https://github.com/blangkonsultan/gold-price-generator.git. Vercel account API returned HTTP 403 (deployment pending permissions)."
     }
   ]
 }
