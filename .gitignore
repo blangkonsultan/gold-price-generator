@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+.codegraph/
+.vercel/
+.superpowers/
+.impeccable/review/
+.impeccable/mocks/
+.env
+.env.*
+!.env.example
+*.local
+*.tsbuildinfo
+.DS_Store

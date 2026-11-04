@@ -1,0 +1,93 @@
+{
+  "project": "gold-price-generator",
+  "phase": "implementation-plan-review",
+  "spec": "docs/superpowers/specs/2026-11-04-gold-price-generator-design.md",
+  "plan": "docs/superpowers/plans/2026-11-04-gold-price-generator.md",
+  "features": [
+    {
+      "id": "feat-000",
+      "name": "Project context and agent bootstrap",
+      "description": "Initialize Obsidian project/decision records, PRODUCT.md, CodeGraph, and a restartable harness without claiming application behavior exists.",
+      "dependencies": [],
+      "status": "completed",
+      "acceptance": [
+        "All project commands run from gold-price-generator.",
+        "Product, state, progress, handoff, and startup artifacts contain actual project facts rather than template entries.",
+        "The real init.sh executes the installed harness validator and clearly distinguishes structural checks from application tests."
+      ],
+      "evidence": "./init.sh exited 0 with structural score 100/100 (all five subsystems 5/5); node --check scripts/verify-harness.mjs passed. CodeGraph full index and node lookup succeeded for the bootstrap adapter (1 file, 6 nodes, 5 edges). This is not application, OCR, test-suite, build, or deployment proof."
+    },
+    {
+      "id": "feat-001",
+      "name": "Real photo upload, local OCR, and source-price review",
+      "description": "Decode a selected fixed-format JPEG/PNG/WebP, recognize the eleven price regions in a browser worker, and require review/correction without sample-price substitution.",
+      "dependencies": ["feat-000"],
+      "status": "blocked",
+      "blocker": "Implementation-plan review is pending.",
+      "acceptance": [
+        "A new upload clears old prices and cannot receive stale results from an earlier OCR job.",
+        "OCR worker/model assets are pinned and self-hosted; photos remain in browser memory.",
+        "Unrecognized prices remain empty and editable; actual image recognition is demonstrated on the supplied photo."
+      ],
+      "evidence": ""
+    },
+    {
+      "id": "feat-002",
+      "name": "Indonesian numeric entry and markup rules",
+      "description": "Parse and format text-only rupiah/percentage inputs and calculate final prices from confirmed originals with per-row precedence.",
+      "dependencies": ["feat-000"],
+      "status": "blocked",
+      "blocker": "Implementation-plan review is pending.",
+      "acceptance": [
+        "1.000.000 is integer rupiah and 1,5 is a percentage, with useful caret/paste/delete behavior.",
+        "A row-specific rule, including zero, replaces global markup rather than stacking.",
+        "Recalculation always uses the original price; unsafe or invalid amounts cannot silently become a valid price."
+      ],
+      "evidence": ""
+    },
+    {
+      "id": "feat-003",
+      "name": "Source-preserving date and price rendering",
+      "description": "Render reviewed prices and an optional Indonesian date at native source resolution, enforcing safe text regions and a readable font floor.",
+      "dependencies": ["feat-001", "feat-002"],
+      "status": "blocked",
+      "blocker": "Implementation-plan review is pending.",
+      "acceptance": [
+        "Decoded source pixels outside editable regions and original image dimensions remain unchanged.",
+        "Unchanged prices/date are not repainted; date is never silently replaced by today.",
+        "Long values fit without overlap, wrapping, clipping, or truncation, or export is explicitly blocked.",
+        "The downloaded PNG is opened and inspected; replacement font/background quality is a release gate."
+      ],
+      "evidence": ""
+    },
+    {
+      "id": "feat-004",
+      "name": "Complete Indonesian mobile editing workflow",
+      "description": "Connect upload, real recognition, source review, markup, date, preview, errors, and PNG download in a mobile-first React interface.",
+      "dependencies": ["feat-001", "feat-002", "feat-003"],
+      "status": "blocked",
+      "blocker": "Implementation-plan review is pending.",
+      "acceptance": [
+        "Upload is prominent before a large preview; the complete workflow is exercised with a real file.",
+        "Controls have Indonesian labels, visible focus, local accessible errors, and real loading/disabled/error states.",
+        "360px, intermediate, and wide layouts have no horizontal overflow; form fonts are at least 16px and primary targets at least 44px."
+      ],
+      "evidence": ""
+    },
+    {
+      "id": "feat-005",
+      "name": "Reviewed release, GitHub push, and Vercel preview",
+      "description": "Complete behavioral checks, actual OCR/export smoke evidence, independent review, documentation, private GitHub publication, and Vercel preview when access permits.",
+      "dependencies": ["feat-004"],
+      "status": "blocked",
+      "blocker": "Implementation-plan review and complete application verification are pending.",
+      "acceptance": [
+        "Pinned dependency install, checks, relevant tests, and production build pass without masking failures.",
+        "CodeGraph is refreshed against actual application source and agent continuity records contain observed evidence.",
+        "No secrets, local caches, sample-price fallback, or unfinished application paths are published.",
+        "A private blangkonsultan/gold-price-generator repository is pushed normally; Vercel status/URL is reported truthfully."
+      ],
+      "evidence": "GitHub authentication was verified as blangkonsultan. No push or deployment has occurred; Vercel account/team API checks returned HTTP 403."
+    }
+  ]
+}
