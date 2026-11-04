@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import type { PreviewModel } from '../hooks/usePriceImage.ts';
 
-type Props = { model: PreviewModel; onDownload(): void; onEdit(): void };
+type Props = { model: PreviewModel; onDownload(): void; onShare?(): void; onEdit(): void };
 const CAPTIONS: Record<PreviewModel['phase'], string> = {
   original: 'Foto asli — belum diperbarui',
   paused: 'Pratinjau sebelumnya — dijeda',
@@ -10,7 +10,7 @@ const CAPTIONS: Record<PreviewModel['phase'], string> = {
   error: 'Pratinjau belum dapat diperbarui',
 };
 
-export function ImagePreview({ model, onDownload, onEdit }: Props) {
+export function ImagePreview({ model, onDownload, onShare, onEdit }: Props) {
   const holder = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     const node = holder.current;
@@ -34,11 +34,21 @@ export function ImagePreview({ model, onDownload, onEdit }: Props) {
     </figure>
     <p id="preview-reason" className={'preview-status ' + (model.phase === 'error' ? 'is-error' : '')} role="status">{model.reason}</p>
     {model.smallerText.length && model.phase === 'ready' ? <p className="hint">Teks pada {model.smallerText.length} kolom diperkecil agar tetap muat tanpa bertumpuk.</p> : null}
-    <button id="download-png" className="primary download-button" type="button" disabled={!model.canDownload}
-      aria-describedby="preview-reason" aria-busy={model.saving} onClick={onDownload}>
-      {model.saving ? 'Menyiapkan PNG…' : 'Unduh PNG'}
-    </button>
+    <div className="preview-actions">
+      <button id="download-png" className="primary download-button" type="button" disabled={!model.canDownload}
+        aria-describedby="preview-reason" aria-busy={model.saving} onClick={onDownload}>
+        {model.saving ? 'Menyiapkan PNG…' : 'Unduh PNG'}
+      </button>
+      {model.canShare ? (
+        <button id="share-png" className="secondary share-button mobile-only-action" type="button"
+          disabled={!model.canDownload || model.saving || model.sharing}
+          aria-describedby="preview-reason" aria-busy={model.sharing} onClick={onShare}>
+          {model.sharing ? 'Menyiapkan gambar…' : 'Bagikan Gambar'}
+        </button>
+      ) : null}
+    </div>
     {model.downloadError ? <p className="field-error" role="alert">{model.downloadError}</p> : null}
+    {model.shareError ? <p className="field-error" role="alert">{model.shareError}</p> : null}
     <button className="text-button mobile-edit-link" type="button" onClick={onEdit}>Kembali ke pengaturan harga</button>
     <p className="export-note">Logo, gramasi, kategori, dan latar tetap mengikuti foto. Jika teks terlalu panjang untuk terbaca, pengunduhan diblokir.</p>
   </section>;

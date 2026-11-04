@@ -22,7 +22,7 @@ export default function App() {
       <UploadPanel source={tool.source} session={tool.session} technicalError={tool.technicalError} onFile={file => { setView('editor'); void tool.loadFile(file); }} />
       {tool.source && tool.preview ? <div className="workspace" data-view={view}>
         <PriceEditor model={tool.editor} actions={tool.actions} />
-        <ImagePreview model={tool.preview} onDownload={() => { void tool.download(); }} onEdit={() => changeView('editor')} />
+        <ImagePreview model={tool.preview} onDownload={() => { void tool.download(); }} onShare={() => { void tool.share(); }} onEdit={() => changeView('editor')} />
       </div> : <section className="start-guide" aria-labelledby="guide-heading">
         <h2 id="guide-heading">Foto asli tetap menjadi desainnya.</h2>
         <p>Yang diubah hanya harga dan, jika Anda memilihnya, tanggal pada gambar.</p>
