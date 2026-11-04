@@ -43,6 +43,10 @@ export function ImagePreview({ model, onDownload, onShare, onEdit }: Props) {
         <button id="share-png" className="secondary share-button mobile-only-action" type="button"
           disabled={!model.canDownload || model.saving || model.sharing}
           aria-describedby="preview-reason" aria-busy={model.sharing} onClick={onShare}>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+          </svg>
           {model.sharing ? 'Menyiapkan gambar…' : 'Bagikan Gambar'}
         </button>
       ) : null}

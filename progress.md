@@ -3,9 +3,8 @@
 ## Current State
 
 **Last Updated:** 2026-11-04
-**Active Feature:** Complete — all features implemented, verified, and pushed
-**Phase:** Implementation complete; all checks pass; PR creation to main.
-
+**Active Feature:** Complete — feat-006 (Mobile social media sharing via Web Share API) implemented and verified
+**Phase:** Implementation complete; all checks and browser verification pass.
 ## Status
 
 ### What's Done
@@ -22,6 +21,9 @@
 - Numeric domain/draft implementation: 43 tests passed; TypeScript check passed; direct Node API smoke confirmed comma-percentage and zero-override behavior.
 - Real local OCR recognized all eleven prices/date; actual startup cancellation, missing-model failure, recovery, and native worker cleanup passed.
 - Native PNG renderer passed source-pixel preservation, actual OCR readback of edited output, font-floor blocking, manual correction, and resized-source checks; the downloaded PNG was opened and inspected.
+- Added mobile social media sharing (`src/image/share.ts`, `usePriceImage.ts`, `ImagePreview.tsx`, `styles.css`) using native Web Share API with files.
+- Share button is strictly visible on mobile viewports (<= 980px) with 44px min touch target, and completely hidden on desktop (> 980px).
+- Full verification: 86 unit tests passing; type check clean; production build succeeds; real Chromium browser verification confirmed desktop hiding, mobile display, 715KB PNG share call, and 360px viewport responsiveness with zero overflow.
 
 ### What's In Progress
 

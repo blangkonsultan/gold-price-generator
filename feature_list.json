@@ -83,6 +83,21 @@
         "A private blangkonsultan/gold-price-generator repository is pushed normally; Vercel status/URL is reported truthfully."
       ],
       "evidence": "All 80 tests, type-check, and production build passed. Repository and branches pushed to https://github.com/blangkonsultan/gold-price-generator.git. Vercel account API returned HTTP 403 (deployment pending permissions)."
+    },
+    {
+      "id": "feat-006",
+      "name": "Mobile social media sharing via Web Share API",
+      "description": "Provide a mobile-only social sharing button to share the generated PNG image directly to WhatsApp, Instagram, Telegram, etc. using navigator.share with files.",
+      "dependencies": ["feat-004"],
+      "status": "completed",
+      "acceptance": [
+        "Share button is displayed strictly on mobile viewports (<= 980px) when file sharing is supported.",
+        "Desktop viewports (> 980px) completely hide the share button.",
+        "Share action creates PNG file 'harga-emas.png' and invokes navigator.share with title and file.",
+        "User cancellation (AbortError) is handled silently without showing error messages.",
+        "Touch target is at least 44px with zero overflow down to 360px viewport."
+      ],
+      "evidence": "Vitest 86/86 passed including 6 unit tests in share.test.ts. Real browser verification in Chromium confirmed share button hidden on 1200px desktop (display: none), visible on 375px mobile (height: 44px, display: flex), successfully invoked navigator.share with 715KB harga-emas.png, and zero overflow at 360px viewport."
     }
   ]
 }
